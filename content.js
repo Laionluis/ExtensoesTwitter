@@ -34,6 +34,11 @@ document.addEventListener('contextmenu', event => {
           // Add the element to the page
          
           element.parentElement.appendChild(outerDiv);
+
+          outerDiv.addEventListener('click', function() {
+            var closestVideo = outerDiv.closest('[data-testid="videoPlayer"]').querySelector('video');
+            console.log(closestVideo);
+          });
         }
      
         observer.unobserve(entry.target);
@@ -41,7 +46,6 @@ document.addEventListener('contextmenu', event => {
     });
   });
 
-<<<<<<< HEAD
   if (element) {
     observer.observe(element);
   } else {
@@ -49,69 +53,3 @@ document.addEventListener('contextmenu', event => {
   }
 
 });
-=======
-const scriptTags = document.querySelectorAll("script");
-
-var ytInitialPlayerResponse_ = '';
-
-if(scriptTags){
-  scriptTags.forEach(scriptTag => {
-    if(scriptTag.textContent.includes('var ytInitialPlayerResponse'))
-      ytInitialPlayerResponse_ = JSON.parse(scriptTag.textContent.split('ytInitialPlayerResponse = ')[1].split(`;var meta = document.createElement('meta')`)[0]);
-});
-}
-
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.action == "getVideoData") {
-    var videoData = {
-      videoUrl: "",
-      videoTitle: "",
-    };
-
-    if(ytInitialPlayerResponse_){
-      // Get video URL
-      var videoUrlElement =  ytInitialPlayerResponse_.streamingData.formats[ytInitialPlayerResponse_.streamingData.formats.length - 1];
-      if (videoUrlElement) {
-        videoData.videoUrl = videoUrlElement.url;
-      }
-
-      // Get video title
-      var videoTitleElement = document.querySelector(
-        "meta[itemprop=name]"
-      );
-      if (videoTitleElement) {
-        videoData.videoTitle = videoTitleElement.getAttribute("content");
-      }
-
-      sendResponse({ videoData: videoData });
-
-      var videoUrl = videoData.videoUrl;
-      var fileName = videoData.videoTitle + ".mp4";
-
-      try {
-        const videoRequest = new Request(videoUrl);
-        fetch(videoRequest, { mode: 'no-cors' })
-          .then(() => {
-            const link = document.createElement('a');
-            link.href = videoUrl;
-            link.setAttribute('download', fileName);
-            link.setAttribute('target', '_blank');
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-          });
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }
-
-  if (request.action == "pipVideo") {
-    document.querySelector('video').removeAttribute("disablepictureinpicture");
-    document.querySelector('video').requestPictureInPicture();    
-
-    sendResponse({ sucesso: true });
-  }
-});
-
->>>>>>> 79fb303b0df66ef73815e275c4da07a7a236735e

@@ -1,12 +1,7 @@
 {
   "manifest_version": 3,
-<<<<<<< HEAD
   "name": "Twitter Video Download",
-  "description": "Enables downloading Twitter videos.",
-=======
-  "name": "YouTube Extension",
   "description": "Improve your YouTube viewing experience with features like Cinema Mode and Mouse Wheel Volume Control!",
->>>>>>> 79fb303b0df66ef73815e275c4da07a7a236735e
   "version": "1.0",
   "content_scripts": [
     {
