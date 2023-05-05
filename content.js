@@ -37,7 +37,8 @@ document.addEventListener('contextmenu', event => {
 
           outerDiv.addEventListener('click', function() {
             var closestVideo = outerDiv.closest('[data-testid="videoPlayer"]').querySelector('video');
-            console.log(closestVideo);
+            var tweet = outerDiv.closest('[data-testid="tweet"]');
+            console.log(getTweetId(tweet, 'article'));
           });
         }
      
@@ -53,3 +54,26 @@ document.addEventListener('contextmenu', event => {
   }
 
 });
+
+function getTweetId(tweet, selector) {
+  const re = /(?:https:\/\/[A-z.]*\/\w*\/status\/)(\d*)(?:\/?\w*)/g
+  return getTweetData(tweet, selector, re)
+}
+
+function getTweetData(tweet, selector, re) {
+  if (selector === '.tweet') {
+      return tweet.data("tweet-id")
+  } else if (selector === 'article') {
+      for (const element of tweet.querySelectorAll('a')) {
+          const match = re.exec(element.href)
+          if (match) {
+              return match[1]
+          }
+      }
+  } else if (selector === modalCalss) {
+      const match = re.exec(window.location.href)
+      if (match) {
+          return match[1]
+      }
+  }
+}
