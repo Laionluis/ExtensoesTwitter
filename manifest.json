@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Twitter Video Download",
-  "description": "Improve your YouTube viewing experience with features like Cinema Mode and Mouse Wheel Volume Control!",
+  "description": "Extension for downloading Twitter videos",
   "version": "1.0",
   "content_scripts": [
     {
@@ -12,6 +12,9 @@
   ],
   "background": {
     "service_worker": "background.js"
+  },  
+  "icons": {
+    "128": "logo-color.png"
   },
   "permissions":  [
     "storage",
