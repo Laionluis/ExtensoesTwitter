@@ -22,7 +22,10 @@ document.addEventListener('contextmenu', event => {
           innerDiv1.classList.add('css-1dbjc4n', 'r-16y2uox', 'r-1wbh5a2');
   
           const innerDiv2 = document.createElement('div');
-          innerDiv2.classList.add('css-901oao', 'r-18jsvk2', 'r-37j5jr', 'r-a023e6', 'r-b88u0q', 'r-rjixqe', 'r-bcqeeo', 'r-qvutc0');
+          var classListDiv2 = element.parentElement.children[0].children[0].children[0].classList.value;
+          if(!classListDiv2)
+            classListDiv2 = 'css-901oao r-18jsvk2 r-37j5jr r-a023e6 r-b88u0q r-rjixqe r-bcqeeo r-qvutc0';
+          innerDiv2.classList.value = classListDiv2; // add(classListDiv2);
   
           // Create the <span> element with the inner text
           const span = document.createElement('span');
@@ -37,7 +40,6 @@ document.addEventListener('contextmenu', event => {
           // Add the element to the page
          
           element.parentElement.appendChild(outerDiv);
-
           outerDiv.addEventListener('click', function() {
             var closestVideo = outerDiv.closest('[data-testid="videoPlayer"]').querySelector('video');
             var tweet = outerDiv.closest('[data-testid="tweet"]');           

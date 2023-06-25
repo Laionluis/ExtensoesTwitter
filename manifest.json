@@ -6,8 +6,7 @@
   "content_scripts": [
     {
       "matches": ["https://twitter.com/*"],
-      "js": ["content.js"],
-      "all_frames": true
+      "js": ["content.js"]
     }
   ],
   "background": {
@@ -17,13 +16,7 @@
     "128": "logo-color.png"
   },
   "permissions":  [
-    "storage",
-    "activeTab",
-    "scripting",
+    "storage",  
     "downloads"
-  ],
-  "web_accessible_resources": [{
-    "resources": ["content.js"],
-    "matches": ["https://twitter.com/*"]
-  }]
+  ]
 }
